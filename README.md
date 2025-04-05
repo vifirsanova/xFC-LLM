@@ -9,3 +9,5 @@
 - Discourse Marker Analysis
 - Task-Specific Guardrails for Fact-Checking
 
+![System Design](https://github.com/user-attachments/assets/c7ccaf62-ce7a-4f8a-9f31-fd202709bc5f)
+
