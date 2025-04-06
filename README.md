@@ -15,13 +15,14 @@
 
 **API Integration**
 
-- `GoogleFactCheck` module aggregates data from (https://toolbox.google.com/factcheck/explorer/search/list:recent;hl=en)[Google Fact Check Tools] to get credibility scores
-- `ClaimBuster` module aggregates data from (https://idir.uta.edu/claimbuster/api/)[ClaimBuster API] to get credibility scores
+- `GoogleFactCheck` module aggregates data from [Google Fact Check Tools](https://toolbox.google.com/factcheck/explorer/search/list:recent;hl=en) to get credibility scores
+- `ClaimBuster` module aggregates data from [ClaimBuster API](https://idir.uta.edu/claimbuster/api/) to get credibility scores
 
 **Vector Database**
 
 We provide a vectorized versions of two popular fact-checking databases: 
-- (https://paperswithcode.com/dataset/liar)[LIAR]
-- (https://fever.ai/dataset/adversarial.html)[FEVER v2.0]
+- [LIAR](https://paperswithcode.com/dataset/liar)
+- [FEVER v2.0](https://fever.ai/dataset/adversarial.html)
 
 See `scripts/vectorized.py` and `indices` for our vectorization script and resulting data storages 
+
