@@ -14,7 +14,3 @@ if __name__ == "__main__":
     print("Google FactCheck Results:", google_checker.get_results(sample_text))
     print("ClaimBuster Score:", claimbuster.get_score(sample_text))
 
-
-# Example of how to load the indices later
-# index_liar_loaded = load_index("indices/liar_index.faiss", embeddings_liar.shape)
-# index_fever_loaded = load_index("indices/fever_index.faiss", fever_embeddings.shape)
