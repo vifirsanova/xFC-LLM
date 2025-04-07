@@ -20,6 +20,8 @@
 
 Example usage:
 ```python
+from integrations.scores import GoogleFactCheck, ClaimBuster
+
 google_checker = GoogleFactCheck()
 claimbuster = ClaimBuster()
     
@@ -49,6 +51,8 @@ Our script searches for the most similar samples from LIAR and FEVER and retriev
 
 Example usage:
 ```python
+from integrations.matches import check
+
 results = check(sample_text)
         
 print("\nFEVER Results:")
