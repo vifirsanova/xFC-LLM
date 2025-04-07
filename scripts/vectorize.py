@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import os
 
-def load_and_process_data(dataset_name, dataset_version, split, text_column, index_output_path):
+def load_and_process_data(dataset_name, dataset_version, split, text_column, index_output_path, parquet_output_path):
     """
     Load dataset, process it, generate embeddings, and create FAISS index.
     
@@ -13,6 +13,7 @@ def load_and_process_data(dataset_name, dataset_version, split, text_column, ind
         split: Dataset split to use (e.g., 'train', 'validation')
         text_column: Column name containing the text to embed
         index_output_path: Path to save the FAISS index
+        parquet_output_path: Path to save the parquet
         
     Returns:
         Tuple of (DataFrame, embeddings, FAISS index)
@@ -20,7 +21,7 @@ def load_and_process_data(dataset_name, dataset_version, split, text_column, ind
     # Load dataset
     dataset = load_dataset(dataset_name, dataset_version, trust_remote_code=True if dataset_name == "liar" else None)
     df = pd.DataFrame(dataset[split])
-    
+
     # Generate embeddings
     model = SentenceTransformer('all-MiniLM-L6-v2')
     embeddings = model.encode(df[text_column].tolist(), convert_to_numpy=True)
@@ -34,6 +35,9 @@ def load_and_process_data(dataset_name, dataset_version, split, text_column, ind
     os.makedirs(os.path.dirname(index_output_path), exist_ok=True)
     faiss.write_index(index, index_output_path)
     
+    # Save as parquet
+    df.to_parquet(parquet_output_path)
+
     return df, embeddings, index
 
 def load_index(index_path, embeddings_shape):
@@ -62,7 +66,8 @@ df_liar, embeddings_liar, index_liar = load_and_process_data(
     dataset_version=None,
     split="train",
     text_column="statement",
-    index_output_path="indices/liar_index.faiss"
+    index_output_path="indices/liar_index.faiss",
+    parquet_output_path="indices/liar.paquet"
 )
 
 # Process and save FEVER dataset
@@ -71,5 +76,6 @@ df_fever, fever_embeddings, index_fever = load_and_process_data(
     dataset_version='v2.0',
     split="validation",
     text_column="claim",
-    index_output_path="indices/fever_index.faiss"
+    index_output_path="indices/fever_index.faiss",
+    parquet_output_path="indices/fever.paquet"
 )

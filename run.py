@@ -13,4 +13,3 @@ if __name__ == "__main__":
     
     print("Google FactCheck Results:", google_checker.get_results(sample_text))
     print("ClaimBuster Score:", claimbuster.get_score(sample_text))
-
