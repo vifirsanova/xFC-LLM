@@ -67,7 +67,7 @@ df_liar, embeddings_liar, index_liar = load_and_process_data(
     split="train",
     text_column="statement",
     index_output_path="indices/liar_index.faiss",
-    parquet_output_path="indices/liar.paquet"
+    parquet_output_path="data/liar_data.parquet"
 )
 
 # Process and save FEVER dataset
@@ -77,5 +77,5 @@ df_fever, fever_embeddings, index_fever = load_and_process_data(
     split="validation",
     text_column="claim",
     index_output_path="indices/fever_index.faiss",
-    parquet_output_path="indices/fever.paquet"
+    parquet_output_path="data/fever_data.parquet"
 )

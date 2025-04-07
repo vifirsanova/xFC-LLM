@@ -1,7 +1,7 @@
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
-from typing import List, Dict, Tuple
+from typing import List, Dict
 import pandas as pd
 
 class VectorSearcher:
@@ -18,7 +18,7 @@ class VectorSearcher:
                    - label_mapping: (Optional) Dictionary for label conversion
         """
         self.index = faiss.read_index(index_path)
-        self.df = pd.read_csv(dataframe_path)
+        self.df = pd.read_parquet(dataframe_path)
         self.config = config
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         
@@ -79,20 +79,20 @@ LIAR_CONFIG = {
     }
 }
 
-# Initialize searchers (assuming you've saved your DataFrames as CSVs)
+# Initialize searchers
 fever_searcher = VectorSearcher(
     index_path='indices/fever_index.faiss',
-    dataframe_path='data/fever_data.csv',
+    dataframe_path='data/fever_data.parquet',
     config=FEVER_CONFIG
 )
 
 liar_searcher = VectorSearcher(
     index_path='indices/liar_index.faiss',
-    dataframe_path='data/liar_data.csv',
+    dataframe_path='data/liar_data.parquet',
     config=LIAR_CONFIG
 )
 
-def check_claim(text: str) -> Dict:
+def check(text: str) -> Dict:
     """
     Check a claim against both datasets and return combined results
     
@@ -108,20 +108,3 @@ def check_claim(text: str) -> Dict:
         'fever_results': fever_searcher.search(vector),
         'liar_results': liar_searcher.search(vector)
     }
-
-# Example usage
-if __name__ == "__main__":
-    while True:
-        user_input = input("\nEnter a claim to verify (or 'quit' to exit): ")
-        if user_input.lower() == 'quit':
-            break
-            
-        results = check_claim(user_input)
-        
-        print("\nFEVER Results:")
-        for res in results['fever_results']:
-            print(f"- {res['text']} (Label: {res['label']}, Distance: {res['distance']:.2f})")
-            
-        print("\nLIAR Results:")
-        for res in results['liar_results']:
-            print(f"- {res['text']} (Label: {res['label']}, Distance: {res['distance']:.2f})")

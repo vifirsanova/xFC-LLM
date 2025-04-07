@@ -24,5 +24,5 @@ We provide a vectorized versions of two popular fact-checking databases:
 - [LIAR](https://paperswithcode.com/dataset/liar)
 - [FEVER v2.0](https://fever.ai/dataset/adversarial.html)
 
-See `scripts/vectorized.py` and `indices` for our vectorization script and resulting data storages 
+See `scripts/vectorized.py`, folders `indices` & `data` for our vectorization script and resulting data storages (faiss and parquet for vector similarity search)
 
